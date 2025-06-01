@@ -2,6 +2,7 @@
 @using System.Globalization
 @inject IProductRepository _productRepository
 @inject IJSRuntime _js
+@attribute [Authorize]
 <BsModal onModalConfirmation="ConfirmDelete_Click" ButtonBootstrapStyle="btn-danger" ButtonText="刪除" Title="是否確認刪除" />
 @if (IsProcessing)
 {
@@ -45,7 +46,7 @@ else
                             <tr>
                                 <td>@obj.Name</td>
                                 <td>@obj.Price.ToString("C", CultureInfo.GetCultureInfo("zh-tw"))</td>
-                                <td>@obj.SpecialTag</td>
+                                <td><span class="badge text-bg-info">@obj.SpecialTag</span></td>
                                 <td>@obj.Category.Name</td>
                                 <td>
                                     <a href="@($"product/update/{obj.Id}")" class="btn btn-primary">
