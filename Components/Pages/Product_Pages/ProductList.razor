@@ -2,7 +2,6 @@
 @using System.Globalization
 @inject IProductRepository _productRepository
 @inject IJSRuntime _js
-@attribute [Authorize]
 <BsModal onModalConfirmation="ConfirmDelete_Click" ButtonBootstrapStyle="btn-danger" ButtonText="刪除" Title="是否確認刪除" />
 @if (IsProcessing)
 {
