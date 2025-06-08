@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using YumBlazor.Data;
+using YumBlazor.Repository.IRepository;
 
-namespace YumBlazor.Repository.IRepository
+namespace YumBlazor.Repository
 {
     public class ProductRepository : IProductRepository
     {
