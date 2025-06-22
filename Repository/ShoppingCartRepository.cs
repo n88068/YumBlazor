@@ -25,6 +25,22 @@ namespace YumBlazor.Repository
                 .Include(c => c.Product).ToListAsync();
         }
 
+        public async Task<int> GetTotalCartCountAsync(string? userId)
+        {
+            int cartCount = 0;
+            var cartItems = await _db.ShoppingCart
+                .Where(c => c.UserId == userId)
+                .ToListAsync();
+
+            foreach (var item in cartItems)
+            {
+                cartCount += item.Count;
+            }
+
+            return cartCount;
+
+        }
+
         public async Task<bool> UpdateCartAsync(string userId, int productId, int updateBy)
         {
             if(string.IsNullOrEmpty(userId))

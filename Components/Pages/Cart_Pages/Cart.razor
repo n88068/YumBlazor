@@ -1,11 +1,9 @@
 ﻿@page "/cart"
-
-
-
 @inject AuthenticationStateProvider _AuthenticationStateProvider
 @inject IShoppingCartRepository _cartRepository
 @inject IOrderRepository _orderRepository
 @inject NavigationManager _navigationManager
+@inject SharedStateService _sharedstateService
 @attribute [Authorize]
 
 @if (IsProcessing)
@@ -170,8 +168,8 @@ else
 
         //新增商品
         var result = await
-    _cartRepository.UpdateCartAsync(OrderHeader.UserId, productId, updateBy);
-
+        _cartRepository.UpdateCartAsync(OrderHeader.UserId, productId, updateBy);
+        _sharedstateService.TotalCartCount = await _cartRepository.GetTotalCartCountAsync(OrderHeader.UserId);
         await LoadCart();
     }
     private async Task ProcessOrderCreation(EditContext args)

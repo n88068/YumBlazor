@@ -5,6 +5,8 @@
 @inject IProductRepository _productRepository
 @inject ICategoryRepository _categoryRepository
 @inject IShoppingCartRepository _cartRepository
+@inject SharedStateService _sharedstateService
+
 
 <PageTitle>Home</PageTitle>
 @if (IsProcessing)
@@ -28,7 +30,7 @@ else
                 </div>
             </div>
         </div>
-
+        
         <div class="content px-4 m-2">
             <ul class="nav nav-underline justify-content-center mb-2">
                 <li class="nav-item">
@@ -162,8 +164,10 @@ else
         else
         {
             //新增商品
+            var userId = user.FindFirst(u => u.Type.Contains("nameidentifier"))?.Value;
             var result = await 
-            _cartRepository.UpdateCartAsync(user.FindFirst(u => u.Type.Contains("nameidentifier"))?.Value, product.Id, 1);
+            _cartRepository.UpdateCartAsync(userId, product.Id, 1);
+            _sharedstateService.TotalCartCount = await _cartRepository.GetTotalCartCountAsync(userId);
 
             if (result)
             {
